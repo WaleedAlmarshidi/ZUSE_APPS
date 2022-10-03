@@ -1,0 +1,37 @@
+# -*- coding: utf-8 -*-
+{
+    "name": "ZUSE Kitchen Screen",
+    "support": "info@zuse.solutions",
+    "version": "15.0.1",
+    "description": """
+        ZUSE KDS Integration with Odoo,
+        
+        partial dump supported, 
+        multiple screens supported, 
+        multiple screens communication supported,
+        order notes and product notes supported, 
+        RECALL screen to save done orders up to 100 orders,
+        AFTER INSTALLING THE APPLICATION, PLEASE CONTACT +966532093168 via WHATSAPP TO GET KITCHEN SCREEN URL AND GUIDANCE 
+        or EMAIL sales@zuse.solutions
+        
+        
+        please visit the website www.zuse.solutions for more details
+    """,
+    "author": "ZUSE",
+    "website": "www.zuse.solutions",
+    "category": "Sales/Point of Sale",
+
+    # any module necessary for this one to work correctly
+    "depends": [
+        "point_of_sale"
+    ],
+
+    # always loaded
+    'data': [
+    ],
+
+    # only loaded in demonstration mode
+    'images': ["static/description/banner.png"],
+    'license': 'OPL-1',
+    'installable': True,
+}
