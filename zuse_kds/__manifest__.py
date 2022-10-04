@@ -16,7 +16,7 @@
         or EMAIL sales@zuse.solutions
         
         
-        please visit the website www.zuse.solutions for more details
+    please visit the website www.zuse.solutions for more details
     """,
     "author": "ZUSE",
     "website": "www.zuse.solutions",
@@ -35,5 +35,7 @@
     'images': ["static/description/banner.png"],
     'license': 'OPL-1',
     'installable': True,
-    'application': True
+    'application': True,
+    'price': 224,
+    'currency': 'USD'
 }
