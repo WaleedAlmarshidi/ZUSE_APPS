@@ -93,7 +93,7 @@ class PosOrder(models.Model):
             "data": {
                 "currency": pos_order.currency_id.name,
                 "customer": pos_order.partner_id.name or "",
-                "date": pos_order.date_order.strftime('%Y-%m-%dT%H:%M:%S'),
+                "date": pos_order.date_order.strftime('%Y-%m-%d %H:%M:%S'),
                 "fiscal_position": pos_order.fiscal_position_id.name or "",
                 "order_ref": pos_order.name,
                 "order_type": type,
