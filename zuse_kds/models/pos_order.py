@@ -12,7 +12,7 @@ class PosOrder(models.Model):
     @api.model
     def _process_order(self, order, draft, existing_order):
         res = super(PosOrder, self)._process_order(order, draft, existing_order)
-        if not existing_order:
+        if not draft:
             url = "https://client.zuse.solutions/odoo"
             payload = self.prepare_webhook_payload(res)
             try:
