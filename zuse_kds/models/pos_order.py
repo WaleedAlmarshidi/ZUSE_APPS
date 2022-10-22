@@ -1,6 +1,6 @@
 import logging
 import requests
-from odoo import models, api
+from odoo import models, api, fields
 
 _logger = logging.getLogger(__name__)
 products_details = None
@@ -8,6 +8,21 @@ products_details = None
 
 class PosOrder(models.Model):
     _inherit = "pos.order"
+
+    def send_to_kitchen(self, order_name):
+        order = self.search([('pos_reference','=',order_name)], limit=1)
+        url = "https://client.zuse.solutions/odoo"
+        payload = self.prepare_webhook_payload(order.id)
+        try:
+            requests.post(
+                url,
+                json=payload,
+                headers={"content-type": "application/json"}
+            )
+            _logger.info("Request successfully sent to ZuseKDS")
+        except Exception as e:
+            _logger.exception("ZuseKDS: %s" % str(e))
+
 
     @api.model
     def _process_order(self, order, draft, existing_order):
@@ -93,7 +108,7 @@ class PosOrder(models.Model):
             "data": {
                 "currency": pos_order.currency_id.name,
                 "customer": pos_order.partner_id.name or "",
-                "date": pos_order.date_order.strftime('%Y-%m-%d %H:%M:%S'),
+                "date": (pos_order.date_order or fields.Datetime.now()) .strftime('%Y-%m-%d %H:%M:%S'),
                 "fiscal_position": pos_order.fiscal_position_id.name or "",
                 "order_ref": pos_order.name,
                 "order_type": type,
