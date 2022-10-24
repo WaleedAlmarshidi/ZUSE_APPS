@@ -19,7 +19,7 @@
     please visit the website www.zuse.solutions for more details
     """,
     "author": "ZUSE",
-    "website": "www.zuse.solutions",
+    "website": "https://zuse.solutions",
     "category": "Sales/Point of Sale",
 
     # any module necessary for this one to work correctly
