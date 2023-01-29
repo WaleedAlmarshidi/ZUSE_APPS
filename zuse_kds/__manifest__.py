@@ -2,7 +2,7 @@
 {
     "name": "Kitchen Screen by ZUSE",
     "support": "info@zuse.solutions",
-    "version": "15.0.1",
+    "version": "16.0",
     "summary": "POS,Point of sale kitchen screen,kitchen scren,POS kitchen screen,KDS,kds",
     "description": """
         ZUSE KDS Integration with Odoo,
@@ -27,9 +27,17 @@
         "point_of_sale"
     ],
     'assets': {
-            'web.assets_backend':   ['zuse_kds/static/src/js/pos_config.js'],
-            'web.assets_qweb': ['zuse_kds/static/src/xml/pos_config.xml']
+        'point_of_sale.assets': [
+        
+            'zuse_kds/static/src/js/pos_config.js',
+                    
+            'zuse_kds/static/src/xml/pos_config.xml',
+            
+        ],
     },
+        # 'web.assets_backend': ['zuse_kds/static/src/js/pos_config.js'],
+        # 'web.assets_qweb': ['zuse_kds/static/src/xml/pos_config.xml']
+    
     # always loaded
     'data': [
     ],
@@ -39,6 +47,6 @@
     'license': 'OPL-1',
     'installable': True,
     'application': True,
-    'price': 22.4,
+    'price': 362.29,
     'currency': 'USD'
 }

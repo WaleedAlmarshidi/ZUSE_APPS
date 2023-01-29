@@ -102,6 +102,8 @@ class PosOrder(models.Model):
         except:
             _logger.exception("pos_order.order_note is not installed")
 
+
+
         return {
             "company_name": pos_order.company_id.name,
             "branch_name": pos_order.config_id.name,

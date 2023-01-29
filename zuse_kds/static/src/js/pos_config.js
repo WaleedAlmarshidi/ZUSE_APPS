@@ -2,14 +2,15 @@ odoo.define('pos_custom_buttons.DemoButton', function (require) {
    'use strict';
    const { Gui } = require('point_of_sale.Gui');
    const PosComponent = require('point_of_sale.PosComponent');
-   const { posbus } = require('point_of_sale.utils');
+   const { identifyError } = require('point_of_sale.utils');r
    const ProductScreen = require('point_of_sale.ProductScreen');
-   const { useListener } = require('web.custom_hooks');
+   const { useListener } = require("@web/core/utils/hooks");
    const Registries = require('point_of_sale.Registries');
    const PaymentScreen = require('point_of_sale.PaymentScreen');
    class SendKitchen extends PosComponent {
       constructor() {
-         super(...arguments);
+         // super(...arguments);
+         super.setup();
          useListener("click-send-kitchen", this.onClickSendKitchen);
       }
       is_available() {
