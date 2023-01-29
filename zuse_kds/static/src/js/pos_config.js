@@ -1,53 +1,41 @@
-odoo.define('pos_custom_buttons.DemoButton', function(require) {
-'use strict';
+odoo.define('pos_custom_buttons.DemoButton', function (require) {
+   'use strict';
    const { Gui } = require('point_of_sale.Gui');
    const PosComponent = require('point_of_sale.PosComponent');
-   const { posbus } = require('point_of_sale.utils');
+   const { identifyError } = require('point_of_sale.utils');r
    const ProductScreen = require('point_of_sale.ProductScreen');
-   const { useListener } = require('web.custom_hooks');
+   const { useListener } = require("@web/core/utils/hooks");
    const Registries = require('point_of_sale.Registries');
    const PaymentScreen = require('point_of_sale.PaymentScreen');
-   class CustomDemoButtons extends PosComponent {
-
-constructor() {
-
-super(...arguments);
-
-useListener('click', this.onClick);
-
-}
-
-is_available() {
-
-const order = this.env.pos.get_order();
-
-return order
-
-}
-
-onClick() {
-
-Gui.showPopup("ErrorPopup", {
-
-title: this.env._t('Payment Screen Custom Button Clicked'),
-
-body: this.env._t('Welcome to OWL'),
-
-});
-
-}
+   class SendKitchen extends PosComponent {
+      constructor() {
+         // super(...arguments);
+         super.setup();
+         useListener("click-send-kitchen", this.onClickSendKitchen);
+      }
+      is_available() {
+         return this.env.pos.get_order();
+      }
+      onClickSendKitchen() {
+         const order = this.is_available();
+         this.env.pos.push_orders(order, {'draft': true}).then(function (result) {
+            return result;
+         });
+         this.rpc({
+            model: 'pos.order',
+            method: 'send_to_kitchen',
+            args: [false],
+            kwargs: {'order_name': order.name},
+        })
+      }
    }
-   CustomDemoButtons.template = 'CustomDemoButtons';
+   SendKitchen.template = 'SendToKitchen';
    ProductScreen.addControlButton({
-
-component: CustomDemoButtons,
-
-condition: function() {
-
-return this.env.pos;
-
-},
+      component: SendKitchen,
+      condition: function () {
+         return this.env.pos;
+      },
    });
-   Registries.Component.add(CustomDemoButtons);
-   return CustomDemoButtons;
+   Registries.Component.add(SendKitchen);
+   return SendKitchen;
 });
