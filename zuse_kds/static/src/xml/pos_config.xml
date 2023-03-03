@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<templates id="template" xml:space="preserve">
+<templates id="SendToKitchen" xml:space="preserve">
    <t t-name="SendToKitchen" owl="1">
       <div class="control-button" style="color:red">
-         <a style="display: block;" class="btn btn-primary" t-on-click="trigger('click-send-kitchen')">
-            Send to kitchen ↘︎
+         <a style="display: block;" class="btn btn-primary" t-on-click="onClickSendKitchen">
+            ⎋
         </a>
       </div>
-      <!-- <div class="control-button" style="color:red">
-          <i class="fa fa-eraser"> </i>
-          <span> </span>
-          <span>Click me</span>
-      </div> -->
    </t>
 </templates>

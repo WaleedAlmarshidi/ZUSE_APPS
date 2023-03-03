@@ -19,11 +19,11 @@ class PosOrder(models.Model):
                 json=payload,
                 headers={"content-type": "application/json"}
             )
-            _logger.info("Request successfully sent to ZuseKDS")
+            _logger.info("Request successfully sent to ZuseKDS, payload: %s\n" %payload)
         except Exception as e:
             _logger.exception("ZuseKDS: %s" % str(e))
 
-
+    
     @api.model
     def _process_order(self, order, draft, existing_order):
         res = super(PosOrder, self)._process_order(order, draft, existing_order)
@@ -84,14 +84,14 @@ class PosOrder(models.Model):
         for rec in payments_details:
             rec["payment_date"] = rec["payment_date"].strftime("%m/%d/%Y, %H:%M:%S")
 
-        type = 2
+        type = 1
         try:
             pos_order_type = pos_order.order_type.name
-            if pos_order_type == 'delivery':
+            if pos_order_type == 'توصيل':
                 type = 3
-            elif pos_order_type == 'dine in':
-                type = 1
-            elif pos_order_type == 'drive thru':
+            elif pos_order_type == 'سفري':
+                type = 2
+            elif pos_order_type == 'Drive thru':
                 type = 4
         except:
             _logger.exception("pos_order_type is not installed")
@@ -101,8 +101,6 @@ class PosOrder(models.Model):
             kitchen_notes += pos_order.order_note or ""
         except:
             _logger.exception("pos_order.order_note is not installed")
-
-
 
         return {
             "company_name": pos_order.company_id.name,
@@ -120,6 +118,7 @@ class PosOrder(models.Model):
                 "total": pos_order.amount_total,
                 "user": pos_order.user_id.name,
                 "note": pos_order.note or "",
+                "table": pos_order.table_id.name or "",
                 "receipt_number": pos_order.pos_reference,
                 "margin": pos_order.margin,
                 "margin_percent": pos_order.margin_percent,
